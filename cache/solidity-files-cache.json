@@ -1,0 +1,77 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "E:\\Study Materials\\Block-Chain\\VueJs\\HardHat\\Cadena\\event-registration-system\\contracts\\Event.sol": {
+      "lastModificationDate": 1652770623396,
+      "contentHash": "b2b7774d5f913387229020acadc1c271",
+      "sourceName": "contracts/Event.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.3"
+      ],
+      "artifacts": [
+        "Event"
+      ]
+    },
+    "E:\\Study Materials\\Block-Chain\\VueJs\\HardHat\\Cadena\\event-registration-system\\contracts\\EventRegistration.sol": {
+      "lastModificationDate": 1652770528584,
+      "contentHash": "48a4a64b908c9b6487e26839995df7c6",
+      "sourceName": "contracts/EventRegistration.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Event.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.3"
+      ],
+      "artifacts": [
+        "EventRegstration"
+      ]
+    }
+  }
+}
