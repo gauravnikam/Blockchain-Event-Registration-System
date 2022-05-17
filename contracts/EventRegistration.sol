@@ -18,16 +18,16 @@ contract EventRegstration is Event{
     }
     mapping (address => registeredUserDetails) public registeredUsers;
     
-    event registrationSuccess(address _accountAddress, uint _id, uint _registrationDateTime);
+    event registrationSuccess(address _accountAddress, uint _id, uint _registrationDateTime, string _name, string _email, string _phone);
 
     function registration(string memory _name, string memory _email, string memory _phone) public payable {
-        require(isEventRegistrationClosed==true,"Event Registration is closed.");
-        require(msg.value!=eventRegistrationFee, "Please pay exact regisration fee.");
+        require(isEventRegistrationClosed==false,"Event Registration is closed.");
+        require(msg.value==eventRegistrationFee, "Please pay exact regisration fee.");
         uint currentTimeStamp = block.timestamp;
         registeredUsers[msg.sender] =  registeredUserDetails(totalRegisteredUsers,_name,_email,_phone,msg.value,currentTimeStamp);
         totalRegisteredUsers +=1;
         totalReceivedFee += msg.value;
-        emit registrationSuccess(msg.sender,totalRegisteredUsers-1,currentTimeStamp);
+        emit registrationSuccess(msg.sender,totalRegisteredUsers-1,currentTimeStamp,_name,_email,_phone);
     }
 
 
