@@ -4,7 +4,7 @@ pragma solidity ^0.8.3;
 contract Event{
 
     string public eventName = "BlockChain Webinar";
-    string public eventDate = "12/06/2022";
+    string public eventDate = "2022-06-12";
     string public eventTime = "14:00"; 
     uint public eventRegistrationFee = 500000000000000000; //0.5 Ether
     address public owner;
