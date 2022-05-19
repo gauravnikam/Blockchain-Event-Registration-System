@@ -7,8 +7,11 @@
 
       <div v-else>
               <label> Connected Account - </label> {{connectedAccountAddress}}
-              <UpdateEventInfoComponent :contractAddress="contractAddress" v-if="contractOwner"></UpdateEventInfoComponent>          
-
+              <div v-if="contractOwner">
+                <label> Total Registrations - </label> {{totalRegistrations}}<br>
+                <label> Total Received Fees - </label> {{totalReceivedFees}}<br>
+                <UpdateEventInfoComponent :contractAddress="contractAddress"></UpdateEventInfoComponent>          
+              </div>
       </div>
 
 
@@ -35,6 +38,8 @@ export default {
       contractAddress : "0x17c8d37a83cAef36E95b2D95E4dB0c126d486A76",
       contractOwner : null,
       eventRegistrationContract : null,
+      totalRegistrations : null,
+      totalReceivedFees : null,
     }
   },
   async mounted(){
@@ -50,32 +55,51 @@ export default {
       .catch();
         
       if(this.isConnectedToMetaMask){
-          await this.checkContractOwnerOwnership();          
+          await this.checkContractOwnership();          
       }
 
   },
   methods: {
-
-      async checkContractOwnerOwnership(){
+      async initEventRegistrationContract(){
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
             this.eventRegistrationContract = new ethers.Contract(this.contractAddress, EventRegistrationABI.abi, signer);
-            this.contractOwner = await (this.eventRegistrationContract).owner();
-        
-            if((this.contractOwner).toLowerCase()==(this.connectedAccountAddress).toLowerCase()){ this.isContractOwner = true }
+      },
+      async getTotalRegistrations(){
+            if(!this.eventRegistrationContract){
+              await this.initEventRegistrationContract();
+            }
+            this.totalRegistrations = await (this.eventRegistrationContract).totalRegisteredUsers(); 
+      },
+      async getTotalReceivedFees(){
+            if(!this.eventRegistrationContract){
+              await this.initEventRegistrationContract();
+            }
+            this.totalReceivedFees = await (this.eventRegistrationContract).totalReceivedFee(); 
+      },
+      async checkContractOwnership(){
+            await this.initEventRegistrationContract();
+            this.contractOwner = await (this.eventRegistrationContract).owner();        
+            if((this.contractOwner).toLowerCase()==(this.connectedAccountAddress).toLowerCase()){ 
+              this.isContractOwner = true; 
+               this.getTotalRegistrations(); 
+               this.getTotalReceivedFees(); 
+            }
       },
       async connectToMetaMask(){
+          
           if(!window.ethereum){
               alert('Metamask is not present.');
               return;
           }
+
           await ethereum
           .request({ method: 'eth_requestAccounts' })
           .then(account=>{              
               if(account.length>0){ 
                 this.isConnectedToMetaMask = true;
                 this.connectedAccountAddress = account[0];
-                this.checkContractOwnerOwnership();
+                this.checkContractOwnership();
               }
           })
           .catch(error => {
@@ -98,4 +122,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+label{font-weight:bold}
 </style>

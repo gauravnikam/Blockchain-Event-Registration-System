@@ -65,8 +65,7 @@ export default{
             
              async updateEventInfo(){            
                 try{
-                    const regFee = ethers.utils.parseEther(this.eventRegFee);
-                    
+                    const regFee = ethers.utils.parseEther(this.eventRegFee);                    
                     const txn = await (this.eventRegistrationContract).updateEventDetails(this.eventName,this.eventDate,this.eventTime,regFee);
                     await txn.wait();
                     alert("Event Info Succefully Updated.")
