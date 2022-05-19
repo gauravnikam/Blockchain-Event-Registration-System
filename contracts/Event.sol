@@ -31,8 +31,11 @@ contract Event{
         emit eventDetailsUpdated(_eventName,_eventDate,_eventTime,_eventRegistrationFee);
     }
 
-    function closeEventRegistration() public payable ownerOnly{
-         payable(owner).transfer(address(this).balance);
+    function closeEventRegistration() public ownerOnly{
+         uint balance= address(this).balance;
+         if(balance>0){
+            payable(owner).transfer(balance);
+         }
          isEventRegistrationClosed = true;
          eventRegistrationClosedAt = block.timestamp;
          emit eventClosed(eventRegistrationClosedAt);

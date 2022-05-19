@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "E:\\Study Materials\\Block-Chain\\VueJs\\HardHat\\Cadena\\event-registration-system\\contracts\\Event.sol": {
-      "lastModificationDate": 1652864556337,
-      "contentHash": "952ac1c5bb0c45f7c694cacda864bd1c",
+      "lastModificationDate": 1652954177211,
+      "contentHash": "0f185bef40cab49a7d6d30100f0bfae4",
       "sourceName": "contracts/Event.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -37,7 +37,7 @@
       ]
     },
     "E:\\Study Materials\\Block-Chain\\VueJs\\HardHat\\Cadena\\event-registration-system\\contracts\\EventRegistration.sol": {
-      "lastModificationDate": 1652781926319,
+      "lastModificationDate": 1652947695602,
       "contentHash": "e57584d5850e92ea291c3c62a73fb638",
       "sourceName": "contracts/EventRegistration.sol",
       "solcConfig": {
