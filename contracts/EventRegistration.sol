@@ -21,6 +21,7 @@ contract EventRegstration is Event{
     event registrationSuccess(address _accountAddress, uint _id, uint _registrationDateTime, string _name, string _email, string _phone);
 
     function registration(string memory _name, string memory _email, string memory _phone) public payable {
+        require(registeredUsers[msg.sender].registrationDateTime == 0,"You already registered.");
         require(isEventRegistrationClosed==false,"Event Registration is closed.");
         require(msg.value==eventRegistrationFee, "Please pay exact regisration fee.");
         uint currentTimeStamp = block.timestamp;

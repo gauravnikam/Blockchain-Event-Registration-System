@@ -4,16 +4,16 @@
       <nav class="navbar">
             <a class="navbar-brand" href="#">Event Registration</a>
             <div class="form-inline" v-if="isConnectedToMetaMask">
-              <b>  Account :  </b> &nbsp;  {{connectedAccountAddress}} &nbsp; <b v-if="contractOwner" style="color:#fff">Admin</b>
+              <b>  Account :  </b> &nbsp;  {{connectedAccountAddress}} &nbsp; <b v-if="isContractOwner" style="color:#fff">Admin</b>
             </div>
       </nav>
       
-      <div v-if="!isConnectedToMetaMask">          
+      <div v-if="!isConnectedToMetaMask" class="connectMetamaskBtnDiv">          
           <Button class="btn btn-success" @click="connectToMetaMask()"> Connect To Metamask </Button>
       </div>
 
       <div v-else>              
-              <div class="row" v-if="contractOwner">                  
+              <div class="row" v-if="isContractOwner">                  
                   <div class="section col-xs-12 col-sm-12 col-md-6 col-lg-6">
                       <UpdateEventInfoComponent :contractAddress="contractAddress"></UpdateEventInfoComponent>
                   </div>        
@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-5 no-padding">
-                                <div class="card-header">Total Received Fees</div>
+                                <div class="card-header">Total Received Ether's</div>
                                 <div class="card-body count">
                                       {{totalReceivedFees}}
                                 </div>
@@ -50,6 +50,9 @@
                     
                   </div>                  
               </div>
+              <div v-else>
+                  <EventRegistrationComponent :contractAddress="contractAddress" :isEventRegistrationClosed="isEventRegistrationClosed" :connectedAccountAddress="connectedAccountAddress"></EventRegistrationComponent>
+              </div>
       </div>
 
 
@@ -62,18 +65,20 @@
 import EventRegistrationABI from "./../artifacts/contracts/EventRegistration.sol/EventRegstration";
 import { ethers } from "ethers";
 import UpdateEventInfoComponent from "./components/UpdateEventInfo";
+import EventRegistrationComponent from "./components/EventRegistration";
 
 export default {
   name: 'App',
   components: {
       'UpdateEventInfoComponent' : UpdateEventInfoComponent,
+      'EventRegistrationComponent' : EventRegistrationComponent,
   },
   data() {
     return {
       isConnectedToMetaMask : false,
       connectedAccountAddress : null,
       isContractOwner : false,
-      contractAddress : "0x4b1501694814364F77C1Fcfa0290320B88b94977",
+      contractAddress : "0x53f4D533e7229fF8696079e5d05a0210D7c584CB",
       contractOwner : null,
       eventRegistrationContract : null,
       totalRegistrations : null,
@@ -115,6 +120,7 @@ export default {
                     const txn = await (this.eventRegistrationContract).closeEventRegistration();
                     await txn.wait();
                     this.$loading(false);
+                    this.isEventRegistrationClosed = true;
                     this.$toastr.s("Registration Succefully Closed."); //Display success message      
               }catch(error){
                     this.$loading(false);
@@ -144,6 +150,7 @@ export default {
               await this.initEventRegistrationContract();
             }
             this.totalReceivedFees = await (this.eventRegistrationContract).totalReceivedFee(); 
+            this.totalReceivedFees  = ethers.utils.formatEther(this.totalReceivedFees);
       },
       async checkContractOwnership(){
             await this.initEventRegistrationContract();
@@ -172,7 +179,7 @@ export default {
               }
           })
           .catch(error => {
-              error.message ? alert(error.messsage) : console.log(error);
+              error.message ? this.$toastr.e(error.message) : console.log(error);
           });
 
       }
@@ -197,6 +204,7 @@ label{font-weight:bold}
 .card{margin : 10px;padding:0}
 .no-padding{padding:0 !important}
 .card-body.count { font-size: 30px;}
+.connectMetamaskBtnDiv{margin-top:20%;}
 </style>
 
 <style>

@@ -2,33 +2,32 @@
     <div>
             <div class="card">
                 <div class="card-header">Event Info</div>
-                <div class="card-body">
-                   
+                <div class="card-body">                   
                      <form @submit.prevent="updateEventInfo()">
 
-                                <div class="row form-group">
-                                    <label>Event Name </label>
-                                    <input type="text" class="form-control" required v-model="eventName" placeholder="Enter Event Name">
-                                </div>
+                        <div class="row form-group">
+                            <label>Event Name </label>
+                            <input type="text" class="form-control" required v-model="eventName" placeholder="Enter Event Name">
+                        </div>
 
-                                <div class="row form-group">
-                                    <label>Event Date </label>
-                                    <input type="date" class="form-control" required v-model="eventDate">
-                                </div>
+                        <div class="row form-group">
+                            <label>Event Date </label>
+                            <input type="date" class="form-control" required v-model="eventDate">
+                        </div>
 
-                                <div class="row form-group">
-                                    <label>Event Time </label>
-                                    <input type="time" class="form-control" required v-model="eventTime">
-                                </div>
+                        <div class="row form-group">
+                            <label>Event Time </label>
+                            <input type="time" class="form-control" required v-model="eventTime">
+                        </div>
 
-                                <div class="row form-group">
-                                    <label>Registration Fee (Ether) </label>
-                                    <input type="number" class="form-control" required step="any" placeholder="Enter Registration Fee In Ether." v-model="eventRegFee">
-                                </div>
+                        <div class="row form-group">
+                            <label>Registration Fee (Ether) </label>
+                            <input type="number" class="form-control" required step="any" placeholder="Enter Registration Fee In Ether." v-model="eventRegFee">
+                        </div>
                                 
-                                <div class="row form-group">
-                                    <input type="submit" class="btn btn-primary submit-btn form-control" value="Update Info">
-                                </div>
+                        <div class="row form-group">
+                            <input type="submit" class="btn btn-primary submit-btn form-control" value="Update Info">
+                        </div>
 
                     </form>
 
