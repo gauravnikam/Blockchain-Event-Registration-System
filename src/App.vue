@@ -78,7 +78,7 @@ export default {
       isConnectedToMetaMask : false,
       connectedAccountAddress : null,
       isContractOwner : false,
-      contractAddress : "0x53f4D533e7229fF8696079e5d05a0210D7c584CB",
+      contractAddress : "0x317001c8c82e3aF3748a5CC98AD0EE99549E1c63",
       contractOwner : null,
       eventRegistrationContract : null,
       totalRegistrations : null,
@@ -132,6 +132,17 @@ export default {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
             this.eventRegistrationContract = new ethers.Contract(this.contractAddress, EventRegistrationABI.abi, signer);
+
+            (this.eventRegistrationContract).on("registrationSuccess", (account, id, dateTime, name, email, phone) => {
+               //console.log(account, id, dateTime, name, email, phone);
+               this.getTotalRegistrations();
+               this.getTotalReceivedFees();
+            });
+
+            (this.eventRegistrationContract).on("eventClosed", (time) => {
+               this.isEventRegistrationClosed = true;
+            });
+
       },
       async getTotalRegistrations(){
             if(!this.eventRegistrationContract){

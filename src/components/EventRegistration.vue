@@ -84,6 +84,7 @@ export default{
         this.eventRegistrationContract = new ethers.Contract(this.contractAddress, EventRegistrationABI.abi, signer);
         this.RegistrationData =  await (this.eventRegistrationContract).registeredUsers(this.connectedAccountAddress); 
         this.eventRegFee = await (this.eventRegistrationContract).eventRegistrationFee(); 
+        
     },
     methods: {    
         getDateFromTimeStamp(timeStamp){
