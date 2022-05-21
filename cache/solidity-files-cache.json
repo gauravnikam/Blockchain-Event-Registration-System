@@ -37,8 +37,8 @@
       ]
     },
     "E:\\Study Materials\\Block-Chain\\VueJs\\HardHat\\Cadena\\event-registration-system\\contracts\\EventRegistration.sol": {
-      "lastModificationDate": 1653033334047,
-      "contentHash": "73f19392db1b74c0b7f392271a30e9b9",
+      "lastModificationDate": 1653048742076,
+      "contentHash": "59ac0e02f1a269af221e1dad8fd8791d",
       "sourceName": "contracts/EventRegistration.sol",
       "solcConfig": {
         "version": "0.8.4",

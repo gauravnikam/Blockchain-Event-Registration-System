@@ -6,7 +6,7 @@
                 <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-5 no-padding">
                     <!-- <div class="card-header">Total Registrations</div> -->
                     <div class="card-body count reg-done">
-                        Registration is already done on {{ this.getDateFromTimeStamp(RegistrationData['registrationDateTime']) }}.
+                       Already Registered.
                     </div>
                 </div>
 

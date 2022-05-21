@@ -13,42 +13,44 @@
       </div>
 
       <div v-else>              
-              <div class="row" v-if="isContractOwner">                  
-                  <div class="section col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                      <UpdateEventInfoComponent :contractAddress="contractAddress"></UpdateEventInfoComponent>
-                  </div>        
-                  <div class="section col-xs-12 col-sm-12 col-md-6 col-lg-6">
-
-                        <div class="row">
-                            <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-5 no-padding">
+              <div class="" v-if="isContractOwner"> 
+              
+                  <div class="row">
+                        <div class="card col-xs-12 col-sm-12 col-md-3 col-lg-3 no-padding" style="margin-left: 25px;">
                                     <div class="card-header">Total Registrations</div>
                                     <div class="card-body count">
                                         {{totalRegistrations}}
                                     </div>
                             </div>
 
-                            <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-5 no-padding">
+                            <div class="card col-xs-12 col-sm-12 col-md-3 col-lg-3 no-padding">
                                 <div class="card-header">Total Received Ether's</div>
                                 <div class="card-body count">
                                       {{totalReceivedFees}}
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="card col-xs-12 col-sm-10 col-md-10 col-lg-10 no-padding">
-                                  <div class="card-header">Close Registration</div>
-                                  <div class="card-body" v-if="!isEventRegistrationClosed">
-                                      <p>Close the registration and withdrawn all the received registration fees.</p>
-                                      <Button class="btn btn-success" @click="closeRegistration()">Close Registration</Button>
-                                  </div>
-                                  <div class="card-body" v-else>
-                                      Event Registrations are closed.
-                                  </div>
-                            </div>
-                        </div>
-                    
-                  </div>                  
+                            <div class="card col-xs-12 col-sm-10 col-md-5 col-lg-5 no-padding">
+                                      <div class="card-header">Close Registration</div>
+                                      <div class="card-body" v-if="!isEventRegistrationClosed">
+                                          <p>Close the registration and <b>withdrawn</b> all the received registration fees.</p>
+                                          <Button class="btn btn-success" @click="closeRegistration()">Close Registration</Button>
+                                      </div>
+                                      <div class="card-body" v-else>
+                                          Event Registrations are closed.
+                                      </div>
+                              </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="section col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                          <UpdateEventInfoComponent :contractAddress="contractAddress"></UpdateEventInfoComponent>
+                      </div>        
+                      <div class="section col-xs-12 col-sm-12 col-md-6 col-lg-6">                      
+                          <RegisterdUsersTableComponent :contractAddress="contractAddress" :connectedAccountAddress="connectedAccountAddress"></RegisterdUsersTableComponent>                                 
+                      </div> 
+                  </div>                 
+
               </div>
               <div v-else>
                   <EventRegistrationComponent :contractAddress="contractAddress" :isEventRegistrationClosed="isEventRegistrationClosed" :connectedAccountAddress="connectedAccountAddress"></EventRegistrationComponent>
@@ -66,19 +68,21 @@ import EventRegistrationABI from "./../artifacts/contracts/EventRegistration.sol
 import { ethers } from "ethers";
 import UpdateEventInfoComponent from "./components/UpdateEventInfo";
 import EventRegistrationComponent from "./components/EventRegistration";
+import RegisterdUsersTableComponent from "./components/RegisteredUsersTable";
 
 export default {
   name: 'App',
   components: {
       'UpdateEventInfoComponent' : UpdateEventInfoComponent,
       'EventRegistrationComponent' : EventRegistrationComponent,
+      'RegisterdUsersTableComponent' : RegisterdUsersTableComponent,
   },
   data() {
     return {
       isConnectedToMetaMask : false,
       connectedAccountAddress : null,
       isContractOwner : false,
-      contractAddress : "0x317001c8c82e3aF3748a5CC98AD0EE99549E1c63",
+      contractAddress : "0xD7e7e0C19665A23CfA7D4ADF2e4011E72f129944",
       contractOwner : null,
       eventRegistrationContract : null,
       totalRegistrations : null,

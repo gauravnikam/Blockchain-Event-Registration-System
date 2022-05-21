@@ -1,6 +1,6 @@
 <template>
     <div>
-            <div class="card">
+            <div class="card" style="margin-top:0">
                 <div class="card-header">Event Info</div>
                 <div class="card-body">                   
                      <form @submit.prevent="updateEventInfo()">
