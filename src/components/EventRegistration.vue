@@ -6,7 +6,7 @@
                 <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-5 no-padding">
                     <!-- <div class="card-header">Total Registrations</div> -->
                     <div class="card-body count reg-done">
-                       Already Registered.
+                       Regstration Completed.
                     </div>
                 </div>
 
@@ -27,6 +27,20 @@
                             <div class="card-header">Registration</div>
                             <div class="card-body" style="margin:10px">                            
                                 <form @submit.prevent="registration()">
+
+                                            <div class="row form-group">
+                                                <label>Event Name : &nbsp;</label>  {{ eventName }} 
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <label>Date & Time : &nbsp;</label>  {{ eventDate }} : {{ eventTime }}.
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <label>Regisration Fee : &nbsp;</label>  {{ convertWeiToEther(eventRegFee) }} Ether's
+                                            </div>
+
+                                            <hr>
 
                                             <div class="row form-group">
                                                 <label>Name </label>
@@ -76,14 +90,26 @@ export default{
             email : null,
             phone : null,
             eventRegFee : null,
+            eventName : null,
+            eventDate : null,
+            eventTime : null,
         }
     },
     async mounted(){            
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        this.eventRegistrationContract = new ethers.Contract(this.contractAddress, EventRegistrationABI.abi, signer);
-        this.RegistrationData =  await (this.eventRegistrationContract).registeredUsers(this.connectedAccountAddress); 
-        this.eventRegFee = await (this.eventRegistrationContract).eventRegistrationFee(); 
+        try{
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            this.eventRegistrationContract = new ethers.Contract(this.contractAddress, EventRegistrationABI.abi, signer);
+            this.RegistrationData =  await (this.eventRegistrationContract).registeredUsers(this.connectedAccountAddress); 
+            this.eventRegFee = await (this.eventRegistrationContract).eventRegistrationFee(); 
+            this.eventName = await (this.eventRegistrationContract).eventName();
+            this.eventDate = await (this.eventRegistrationContract).eventDate();
+            this.eventTime = await (this.eventRegistrationContract).eventTime(); 
+
+        }catch(error){
+            //console.log(error);
+        }  
         
     },
     methods: {    
@@ -97,7 +123,11 @@ export default{
             ":"+date.getMinutes()+
             ":"+date.getSeconds();
 
-        },        
+        }, 
+        convertWeiToEther(wei){
+                if(!wei) return;
+                return ethers.utils.formatEther(wei);
+        },       
         async registration(){                         
                 try{                        
                         this.$loading(true);                   
@@ -120,4 +150,5 @@ export default{
     .card{margin:40px auto;}
     .reg-closed{color:red}
     .reg-done{color:green}
+    label{font-weight:bold}
 </style>
