@@ -82,7 +82,7 @@ export default {
       isConnectedToMetaMask : false,
       connectedAccountAddress : null,
       isContractOwner : false,
-      contractAddress : "0xD7e7e0C19665A23CfA7D4ADF2e4011E72f129944",
+      contractAddress : "0xD30F92757f76c0323F760e900b38543d8e1735C4",
       contractOwner : null,
       eventRegistrationContract : null,
       totalRegistrations : null,
