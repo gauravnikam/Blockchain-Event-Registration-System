@@ -4,7 +4,7 @@ pragma solidity ^0.8.3;
 contract Event{
 
     string public eventName = "BlockChain Webinar";
-    string public eventDate = "12/06/2022";
+    string public eventDate = "2022-06-12";
     string public eventTime = "14:00"; 
     uint public eventRegistrationFee = 500000000000000000; //0.5 Ether
     address public owner;
@@ -31,8 +31,11 @@ contract Event{
         emit eventDetailsUpdated(_eventName,_eventDate,_eventTime,_eventRegistrationFee);
     }
 
-    function closeEventRegistration() public payable ownerOnly{
-         payable(owner).transfer(address(this).balance);
+    function closeEventRegistration() public ownerOnly{
+         uint balance= address(this).balance;
+         if(balance>0){
+            payable(owner).transfer(balance);
+         }
          isEventRegistrationClosed = true;
          eventRegistrationClosedAt = block.timestamp;
          emit eventClosed(eventRegistrationClosedAt);
