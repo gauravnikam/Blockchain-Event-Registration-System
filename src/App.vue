@@ -212,7 +212,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-label{font-weight:bold}
+ label{font-weight:bold}
 .navbar{background:#000 !important;color:#007bff}
 .card-header{text-align: left;font-size: 20px;color: #000;}
 .section{margin-top:20px;}
