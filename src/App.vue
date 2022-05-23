@@ -82,7 +82,7 @@ export default {
       isConnectedToMetaMask : false,
       connectedAccountAddress : null,
       isContractOwner : false,
-      contractAddress : "0xD30F92757f76c0323F760e900b38543d8e1735C4",
+      contractAddress : "0x28A56EE07ff62f1Bb552d2aee74084a43b333624",
       contractOwner : null,
       eventRegistrationContract : null,
       totalRegistrations : null,
@@ -92,15 +92,23 @@ export default {
   },
   async mounted(){
       this.$loading(true);
-      await ethereum
-      .request({ method: 'eth_accounts' })
-      .then(accounts=>{          
-            if(accounts.length>0){ 
-              this.isConnectedToMetaMask = true; 
-              this.connectedAccountAddress = accounts[0];
-            }
-      })
-      .catch();
+      try{
+
+        await ethereum
+        .request({ method: 'eth_accounts' })
+        .then(accounts=>{          
+              if(accounts.length>0){ 
+                this.isConnectedToMetaMask = true; 
+                this.connectedAccountAddress = accounts[0];
+              }
+        })
+        .catch(error=>{
+            this.$loading(false);
+        });
+
+      }catch(error){
+
+      }
         
       if(this.isConnectedToMetaMask){
           await this.checkContractOwnership();          
