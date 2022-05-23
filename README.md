@@ -1,7 +1,7 @@
 # Event Registration System
 
-This is a simple Ethereum BlockChain based Event Registration System. Here Contract Owner/ Admin can update event information, View all the registrations, Close an even registration and withdrawan all the received fee. Normal user can simply do the registration of an event.
-Metamsk is mendetory to connect the application.
+This is a simple Ethereum BlockChain based Event Registration System. Here Contract Owner/ Admin can update the event information, View all the registrations, Close the event registration and withdrawan all the received fees/funds. Normal user can simply do the registration of an event.
+Metamask is mandetory to connect this application.
 
 
 Try running some of the following tasks:
